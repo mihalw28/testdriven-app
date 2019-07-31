@@ -1,7 +1,7 @@
 import os
-import sys
+# import sys
 
-from flask import Flask, jsonify
+from flask import Flask
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 
@@ -35,5 +35,5 @@ class UsersPing(Resource):
         return {"status": "success", "message": "pong!"}
 
 
-print(app.config, file=sys.stderr)
+# print(app.config, file=sys.stderr)
 api.add_resource(UsersPing, "/users/ping")
