@@ -14,6 +14,7 @@ before_install:
 
 before_script:
   - docker-compose up -d --build
+  - docker-compose run -d
 
 script:
   - docker-compose exec users python manage.py test
