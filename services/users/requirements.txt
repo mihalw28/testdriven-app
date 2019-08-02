@@ -2,11 +2,13 @@ aniso8601==7.0.0
 appdirs==1.4.3
 attrs==19.1.0
 black==19.3b0
+blinker==1.4
 Click==7.0
 coverage==4.5.4
 entrypoints==0.3
 flake8==3.7.8
 Flask==1.1.1
+Flask-DebugToolbar==0.10.1
 Flask-RESTful==0.3.7
 Flask-SQLAlchemy==2.4.0
 Flask-Testing==0.7.1
