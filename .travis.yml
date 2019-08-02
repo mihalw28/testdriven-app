@@ -14,11 +14,10 @@ before_install:
 
 before_script:
   - docker-compose up -d --build
-  - docker-compose run -d
 
 script:
-  - docker-compose exec users python manage.py test
-  - docker-compose exec users flake8 project
+  - docker-compose run users python manage.py test
+  - docker-compose run users flake8 project
 
 after_script:
   - docker-compose down
