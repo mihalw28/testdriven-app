@@ -53,7 +53,9 @@ class UserList(Resource):
                 response_object["message"] = f"{email} was added!"
                 return response_object, 201
             else:
-                response_object["message"] = "Sorry. That email already exists."
+                response_object[
+                    "message"
+                ] = "Sorry. That email already exists."
                 return response_object, 400
         except exc.IntegrityError:
             db.session.rollback()
@@ -63,9 +65,7 @@ class UserList(Resource):
         """Get all users."""
         response_object = {
             "status": "success",
-            "data" : {
-                "users": [user.to_json() for user in User.query.all()]
-            }
+            "data": {"users": [user.to_json() for user in User.query.all()]},
         }
         return response_object, 200
 

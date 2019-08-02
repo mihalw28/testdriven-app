@@ -29,7 +29,9 @@ class TestUserService(BaseTestCase):
         with self.client:
             response = self.client.post(
                 "/users",
-                data=json.dumps({"username": "michal", "email": "michal@waszak.com"}),
+                data=json.dumps(
+                    {"username": "michal", "email": "michal@waszak.com"}
+                ),
                 content_type="application/json",
             )
             data = json.loads(response.data.decode())
@@ -68,12 +70,16 @@ class TestUserService(BaseTestCase):
         with self.client:
             self.client.post(
                 "/users",
-                data=json.dumps({"username": "michal", "email": "michal@waszak.com"}),
+                data=json.dumps(
+                    {"username": "michal", "email": "michal@waszak.com"}
+                ),
                 content_type="application/json",
             )
             response = self.client.post(
                 "/users",
-                data=json.dumps({"username": "michal", "email": "michal@waszak.com"}),
+                data=json.dumps(
+                    {"username": "michal", "email": "michal@waszak.com"}
+                ),
                 content_type="application/json",
             )
             data = json.loads(response.data.decode())
@@ -102,7 +108,9 @@ class TestUserService(BaseTestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(len(data["data"]["users"]), 2)
             self.assertIn("michal", data["data"]["users"][0]["username"])
-            self.assertIn("michal@waszak.com", data["data"]["users"][0]["email"])
+            self.assertIn(
+                "michal@waszak.com", data["data"]["users"][0]["email"]
+            )
             self.assertIn("elon", data["data"]["users"][1]["username"])
             self.assertIn("elon@musk.com", data["data"]["users"][1]["email"])
             self.assertIn("success", data["status"])
