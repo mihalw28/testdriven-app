@@ -23,6 +23,5 @@ RUN chmod +x /usr/src/app/entrypoint.sh
 COPY . /usr/src/app
 
 # run server
-# CMD ["/usr/src/app/entrypoint.sh"]
 CMD ["chmod","+x","/usr/src/app/entrypoint.sh"]
 # upper passed build
