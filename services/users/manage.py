@@ -7,7 +7,9 @@ from project import create_app, db
 from project.api.models import User
 
 COV = coverage.coverage(
-    branch=True, include="project/*", omit=["project/tests/*", "project/config.py"]
+    branch=True,
+    include="project/*",
+    omit=["project/tests/*", "project/config.py"],
 )
 COV.start()
 
@@ -36,7 +38,9 @@ def test():
 def seed_db():
     """Seeds the database."""
     db.session.add(User(username="tomek", email="michal@tomek.com"))
-    db.session.add(User(username="michalwaszak", email="michalwaszak@email.com"))
+    db.session.add(
+        User(username="michalwaszak", email="michalwaszak@email.com")
+    )
     db.session.commit()
 
 
