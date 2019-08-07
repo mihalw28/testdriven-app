@@ -23,7 +23,7 @@ COPY . /usr/src/app
 
 # run server
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
-CMD ["chmod","+x"]
+# CMD ["chmod","+x"]
 # CMD ["chmod","+x","/usr/src/app/entrypoint.sh"]
 # CMD ["/usr/src/app/entrypoint.sh"]
 # CMD with "chmod" "+x" runs only in travis-ci, without doesn't run
