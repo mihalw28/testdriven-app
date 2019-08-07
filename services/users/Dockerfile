@@ -24,4 +24,7 @@ COPY . /usr/src/app
 
 # run server
 CMD ["chmod","+x","/usr/src/app/entrypoint.sh"]
-# upper passed build
+# CMD ["/usr/src/app/entrypoint.sh"]
+# CMD with "chmod" "+x" runs only in travis-ci, without doesn't run
+# CMD just with path to entrypoint runs just local/docker-machine, doesn't run on travis-ci
+# Wonder what to do.
