@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from project import bcrypt, db
+from project import db
 from project.api.models import User
 from sqlalchemy import exc, or_
 
