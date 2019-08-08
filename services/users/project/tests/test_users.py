@@ -186,9 +186,13 @@ class TestUserService(BaseTestCase):
         Ensure error is thrown if the JSON object does not have a password key.
         """
         with self.client:
-            response = self.client.post("/users", data=json.dumps(dict(
-                username="michal", email="michal@waszak.com"
-            )), content_type="application/json")
+            response = self.client.post(
+                "/users",
+                data=json.dumps(
+                    dict(username="michal", email="michal@waszak.com")
+                ),
+                content_type="application/json",
+            )
             data = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 400)
             self.assertIn("Invalid payload", data["message"])
