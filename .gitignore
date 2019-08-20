@@ -4,3 +4,4 @@ venv/
 .vscode/
 .aws/
 htmlcov
+node_modules
