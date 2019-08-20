@@ -11,11 +11,11 @@ inspect() {
 
 # run unit and integration tests
 docker-compose up -d --build
-docker-compose run users python manage.py test
+docker-compose exec users python manage.py test
 inspect $? users
-docker-compose run users flake8 project
+docker-compose exec users flake8 project
 inspect $? users-lint
-docker-compose run client npm run coverage
+docker-compose exec client npm run coverage
 inspect $? client
 docker-compose down
 
