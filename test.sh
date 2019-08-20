@@ -1,11 +1,12 @@
-#!/bin/bash
+#!/bin/sh
+
 
 fails=""
 
 inspect() {
-    if [ $1 -ne 0 ]; then
+  if [ $1 -ne 0 ]; then
     fails="${fails} $2"
-    fi
+  fi
 }
 
 # run unit and integration tests
@@ -15,14 +16,14 @@ inspect $? users
 docker-compose exec users flake8 project
 inspect $? users-lint
 docker-compose exec client npm run coverage
-instpec $? client
+inspect $? client
 docker-compose down
 
 # return proper code
 if [ -n "${fails}" ]; then
-    echo "Test failed: ${fails}"
-    exit 1
+  echo "Tests failed: ${fails}"
+  exit 1
 else
-    echo "Test passed!"
-    exit 0
+  echo "Tests passed!"
+  exit 0
 fi
