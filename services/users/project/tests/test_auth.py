@@ -5,22 +5,14 @@ from flask import current_app
 from project import db
 from project.api.models import User
 from project.tests.base import BaseTestCase
-from project.tests.utils import add_user
+from project.tests.utils import add_user, register_response, login_response
 
 
 class TestAuthBlueprint(BaseTestCase):
     def test_user_registration(self):
         with self.client:
-            response = self.client.post(
-                "/auth/register",
-                data=json.dumps(
-                    {
-                        "username": "newuser",
-                        "email": "new@user.com",
-                        "password": "randompass",
-                    }
-                ),
-                content_type="application/json",
+            response = register_response(
+                self, "newuser", "new@user.com", "randompass"
             )
             data = json.loads(response.data.decode())
             self.assertTrue(data["status"] == "success")
@@ -32,16 +24,8 @@ class TestAuthBlueprint(BaseTestCase):
     def test_user_registration_duplicate_email(self):
         add_user("mac", "test@test.com", "password")
         with self.client:
-            response = self.client.post(
-                "/auth/register",
-                data=json.dumps(
-                    {
-                        "username": "michal",
-                        "email": "test@test.com",
-                        "password": "random",
-                    }
-                ),
-                content_type="application/json",
+            response = register_response(
+                self, "michal", "test@test.com", "random"
             )
             data = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 400)
@@ -51,16 +35,8 @@ class TestAuthBlueprint(BaseTestCase):
     def test_user_registration_duplicate_username(self):
         add_user("michal", "new@email.com", "password")
         with self.client:
-            response = self.client.post(
-                "/auth/register",
-                data=json.dumps(
-                    {
-                        "username": "michal",
-                        "email": "test@test.com",
-                        "password": "random",
-                    }
-                ),
-                content_type="application/json",
+            response = register_response(
+                self, "michal", "test@test.com", "random"
             )
             data = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 400)
@@ -124,13 +100,7 @@ class TestAuthBlueprint(BaseTestCase):
     def test_registered_user_login(self):
         with self.client:
             add_user("test", "test@test.com", "test")
-            response = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            response = login_response(self, "test@test.com", "test")
             data = json.loads(response.data.decode())
             self.assertTrue(data["status"] == "success")
             self.assertTrue(data["message"] == "Successfully logged in.")
@@ -140,13 +110,7 @@ class TestAuthBlueprint(BaseTestCase):
 
     def test_not_registered_user_login(self):
         with self.client:
-            response = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "mark@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            response = login_response(self, "mark@test.com", "test")
             data = json.loads(response.data.decode())
             self.assertTrue(data["status"] == "fail")
             self.assertTrue(data["message"] == "User does not exist.")
@@ -157,13 +121,7 @@ class TestAuthBlueprint(BaseTestCase):
         add_user("test", "test@test.com", "test")
         with self.client:
             # user login
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             # valid token logout
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.get(
@@ -178,13 +136,7 @@ class TestAuthBlueprint(BaseTestCase):
         add_user("test", "test@test.com", "test")
         current_app.config["TOKEN_EXPIRATION_SECONDS"] = -1
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             # invalid token logout
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.get(
@@ -212,13 +164,7 @@ class TestAuthBlueprint(BaseTestCase):
     def test_user_status(self):
         add_user("test", "test@test.com", "test")
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.get(
                 "/auth/status", headers={"Authorization": f"Bearer {token}"}
@@ -250,13 +196,7 @@ class TestAuthBlueprint(BaseTestCase):
         user.active = False
         db.session.commit()
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.get(
                 "/auth/logout", headers={"Authorization": f"Bearer {token}"}
@@ -272,13 +212,7 @@ class TestAuthBlueprint(BaseTestCase):
         user.active = False
         db.session.commit()
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.get(
                 "/auth/logout", headers={"Authorization": f"Bearer {token}"}
