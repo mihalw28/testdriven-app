@@ -15,7 +15,7 @@
       "environment": [
         {
           "name": "APP_SETTINGS",
-          "value": "project.config.StagingConfig" 
+          "value": "project.config.StagingConfig"
         },
         {
           "name": "DATABASE_TEST_URL",
@@ -55,8 +55,8 @@
       ],
       "environment": [
         {
-          "name": "POSTGRESS_PASSWORD",
-          "value": "postgres" 
+          "name": "POSTGRES_PASSWORD",
+          "value": "postgres"
         },
         {
           "name": "POSTGRES_USER",
@@ -73,4 +73,4 @@
     }
   ],
   "family": "testdriven-users-stage-td"
-  }
+}
