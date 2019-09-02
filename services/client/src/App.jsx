@@ -16,7 +16,7 @@ class App extends Component {
   constructor() {
       super();
       this.state = {
-          users : [],
+          users: [],
           title: 'TestDriven.io',
           isAuthenticated: false,
           messageName: null,
