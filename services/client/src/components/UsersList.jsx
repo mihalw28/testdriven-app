@@ -5,7 +5,7 @@ const UsersList = (props) => {
         <div>
             <h1 className="title is-1">All Users</h1>
             <hr/><br/>
-            <table className="table is-hoverable is-fullwifdth">
+            <table className="table is-hoverable is-fullwidth">
                 <thead>
                     <tr>
                         <th>ID</th>

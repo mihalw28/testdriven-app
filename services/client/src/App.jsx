@@ -16,7 +16,7 @@ class App extends Component {
   constructor() {
       super();
       this.state = {
-          users : [],
+          users: [],
           title: 'TestDriven.io',
           isAuthenticated: false,
           messageName: null,
@@ -39,7 +39,7 @@ class App extends Component {
   getUsers() {
     axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
     .then((res) => { this.setState({ users: res.data.data.users }); })
-    .catch((err) => { console.log(err); });
+    .catch((err) => { });
   };
   logoutUser() {
     window.localStorage.clear();
