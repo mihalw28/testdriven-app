@@ -10,7 +10,7 @@ exports[`UsersList renders a snapshot properly 1`] = `
   <hr />
   <br />
   <table
-    className="table is-hoverable is-fullwifdth"
+    className="table is-hoverable is-fullwidth"
   >
     <thead>
       <tr>
