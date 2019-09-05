@@ -4,7 +4,7 @@ import unittest
 from project import db
 from project.api.models import User
 from project.tests.base import BaseTestCase
-from project.tests.utils import add_admin, add_user
+from project.tests.utils import add_admin, add_user, login_response
 
 
 class TestUserService(BaseTestCase):
@@ -22,11 +22,7 @@ class TestUserService(BaseTestCase):
         """Ensure a new user can be added to the database."""
         add_admin("sth", "sth@sth.com", "sth")
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps({"email": "sth@sth.com", "password": "sth"}),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "sth@sth.com", "sth")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.post(
                 "/users",
@@ -49,13 +45,7 @@ class TestUserService(BaseTestCase):
         """Ensure error is thrown if the JSON object is empty."""
         add_admin("test", "test@test.com", "test")
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.post(
                 "/users",
@@ -74,13 +64,7 @@ class TestUserService(BaseTestCase):
         """
         add_admin("test", "test@test.com", "test")
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.post(
                 "/users",
@@ -99,13 +83,7 @@ class TestUserService(BaseTestCase):
         """Ensure error is thrown if the email already exists."""
         add_admin("test", "test@test.com", "test")
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             self.client.post(
                 "/users",
@@ -235,13 +213,7 @@ class TestUserService(BaseTestCase):
         """
         add_admin("test", "test@test.com", "test")
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.post(
                 "/users",
@@ -262,13 +234,7 @@ class TestUserService(BaseTestCase):
         user.active = False
         db.session.commit()
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.post(
                 "/users",
@@ -290,13 +256,7 @@ class TestUserService(BaseTestCase):
     def test_add_user_not_admin(self):
         add_user("test", "test@test.com", "test")
         with self.client:
-            resp_login = self.client.post(
-                "/auth/login",
-                data=json.dumps(
-                    {"email": "test@test.com", "password": "test"}
-                ),
-                content_type="application/json",
-            )
+            resp_login = login_response(self, "test@test.com", "test")
             token = json.loads(resp_login.data.decode())["auth_token"]
             response = self.client.post(
                 "/users",
