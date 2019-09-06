@@ -3,7 +3,6 @@ from project.tests.utils import add_exercise
 
 
 class TestExercisesModel(BaseTestCase):
-
     def test_add_exercise(self):
         exercise = add_exercise()
         self.assertTrue(exercise.id)

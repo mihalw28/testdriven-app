@@ -16,25 +16,25 @@ class DevelopmentConfig(BaseConfig):
     """Development configuration"""
 
     DEBUG_TB_ENABLED = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 
 class TestingConfig(BaseConfig):
     """Testing configuration"""
 
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_TEST_URL")
 
 
 class StagingConfig(BaseConfig):
     """Staging configuration"""
 
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 
 class ProductionConfig(BaseConfig):
     """Production configuration"""
 
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")

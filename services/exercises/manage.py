@@ -8,13 +8,10 @@ import coverage
 from flask.cli import FlaskGroup
 
 from project import create_app, db
-from project.api.models import Exercise
 
 
 COV = coverage.coverage(
-    branch=True,
-    include="project/*",
-    omit=["project/tests/*", "project/config.py"],
+    branch=True, include="project/*", omit=["project/tests/*", "project/config.py"]
 )
 COV.start()
 
@@ -48,7 +45,7 @@ def cov():
     sys.exit(result)
 
 
-@cli.command('recreate_db')
+@cli.command("recreate_db")
 def recreate_db():
     db.drop_all()
     db.create_all()
