@@ -26,7 +26,6 @@ const exercises = [
   }
 ];
 
-
 test('Exercises renders properly when not authenticated', () => {
   const onDidMount = jest.fn();
   Exercises.prototype.componentDidMount = onDidMount;
@@ -63,7 +62,7 @@ test('Exercises will call componentWillMount when mounted', () => {
   const onWillMount = jest.fn();
   Exercises.prototype.componentWillMount = onWillMount;
   const wrapper = mount(<Exercises/>);
-  expect(onWillMount).toHaveBeenCalledTimes(1);
+  expect(onWillMount).toHaveBeenCalledTimes(1)
 });
 
 test('Exercises will call componentDidMount when mounted', () => {
