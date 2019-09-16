@@ -1,13 +1,17 @@
-from flask import Blueprint, request
+from flask import Blueprint, jsonify, request
 from flask_restful import Api, Resource
 from project import db
 from project.api.models import Exercise
 from project.api.utils import authenticate_restful
 from sqlalchemy import exc
 
-
 exercises_blueprint = Blueprint("exercises", __name__)
 api = Api(exercises_blueprint)
+
+
+@exercises_blueprint.route("/exercises/ping", methods=["GET"])
+def ping_pong():
+    return jsonify({"status": "success", "message": "pong!"})
 
 
 class ExerciseList(Resource):
