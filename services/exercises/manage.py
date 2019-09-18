@@ -64,7 +64,7 @@ def seed_db():
                 "Define a function called sum that takes two integers as "
                 "arguments and returns their sum."
             ),
-            test_code="print(sum(2, 3))",
+            test_code="sum(2, 3)",
             test_code_solution="5",
         )
     )
@@ -74,7 +74,7 @@ def seed_db():
                 "Define a function called reverse that takes a string as "
                 "an argument and returns the string in reversed order."
             ),
-            test_code="print(reverse(racecar))",
+            test_code="reverse('racecar')",
             test_code_solution="racecar",
         )
     )
@@ -85,7 +85,7 @@ def seed_db():
                 "as an argument and then returns the factorial of that given "
                 "number."
             ),
-            test_code="print(factorial(5))",
+            test_code="factorial(5)",
             test_code_solution="120",
         )
     )
