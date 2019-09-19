@@ -9,6 +9,11 @@ import { MemoryRouter as Router } from 'react-router-dom';
 
 const logoutUser = jest.fn();
 
+beforeEach(() => {
+    console.error = jest.fn();
+    console.error.mockClear();
+  });
+
 test('Logout renders properly', () => {
     const wrapper = shallow(<Logout logoutUser={logoutUser}/>);
     const element = wrapper.find('p')
