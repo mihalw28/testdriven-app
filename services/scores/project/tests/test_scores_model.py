@@ -3,7 +3,6 @@ from project.tests.utils import add_score
 
 
 class TestScoreModel(BaseTestCase):
-
     def tes_add_score(self):
         score = add_score(1, 1, True)
         self.assertTrue(score.id)

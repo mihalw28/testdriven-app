@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "Waiting for postgres..."
 
 while ! nc -z scores-db 5432; do
-  sleep 0.3
+  sleep 0.1
 done
 
 echo "PostgreSQL started"
