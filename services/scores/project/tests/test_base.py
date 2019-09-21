@@ -1,6 +1,3 @@
-# project/tests/test_base.py
-
-
 import json
 
 from project.tests.base import BaseTestCase
